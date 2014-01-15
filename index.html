@@ -1,0 +1,273 @@
+
+Drive
+7.07 GB (47%) of 15 GB usedManage
+		
+	
+	
+	
+Title
+	
+Owner
+	
+Last modified
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+<head>
+<title>Experiments with Python</title>
+<script src="./scripts/skulpt.js" type="text/javascript"></script>
+<script src="./scripts/builtin.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>  
+
+<link rel="stylesheet" href="./styles/style.css" type="text/css" media="screen">
+</style>
+
+</head>
+
+<body>
+
+<div id="container" class="clearfix" style="display: block;">
+
+<div id="sidebar"><a id="logo" href="./testing.html"></a>
+<div id="nav">
+<div class="menu-header-navigation-container">
+<ul id="menu-header-navigation" class="menu">
+<li><a href="./index.html">My index</a></li>
+<li><a href="./deutsche.html">Deutsche Dinge</a></li>
+<li><a href="./code.html">Python Code</a></li>
+
+</ul>
+</div></div></div>
+
+<div id="content"><div class="col wide">
+
+<script type="text/javascript">
+
+function outf(text) {
+   var mypre = document.getElementById("output");
+   mypre.innerHTML = mypre.innerHTML + text;
+}
+
+function builtinRead(x)
+{
+   if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+           throw "File not found: '" + x + "'";
+   return Sk.builtinFiles["files"][x];
+}
+
+function runit() {
+  var prog = document.getElementById("yourcode").value;
+  var mypre = document.getElementById("output");
+  mypre.innerHTML = '';
+  Sk.canvas = "mycanvas";
+  Sk.pre = "output";
+  Sk.configure({output:outf,
+  read:builtinRead
+     });
+   try {
+     Sk.importMainWithBody("<stdin>",false,prog);
+  } catch (e) {
+     alert(e);
+  }
+}
+
+function addLoadEvent(func) {
+ var oldonload = window.onload;
+ if (typeof window.onload != 'function') {
+   window.onload = func;
+ } else {
+   window.onload = function() {
+     if (oldonload) {
+       oldonload();
+     }
+     func();
+   }
+ }
+}
+addLoadEvent(runit);
+addLoadEvent(function() {
+});
+
+</script>
+
+<form>
+
+<textarea id="yourcode" cols="40" rows="10" style="display:none;">
+import turtle
+import random
+
+wn = turtle.Screen()
+t = turtle.Turtle()
+wn.setup(800,100)
+t.speed(5)
+
+t.penup()
+t.goto(-350, 0)
+t.pendown()
+t.fillcolor("black")
+t.write("Carell",None,None,"50px sans-serif")
+
+t.penup()
+t.goto(-200,0)
+t.pendown()
+t.fillcolor("black")
+t.write("Hamil",None,None,"50px sans-serif")
+
+t.penup()
+t.goto(0,20)
+t.pendown()
+def makesquare(t,size):
+for i in range (4):
+t.forward(size)
+t.right(90)
+
+def makespisquare(t,size):
+for i in range(18):
+makesquare(t,size)
+t.right(20)
+makespisquare(t,15)
+
+
+wn.exitonclick()
+
+
+
+</textarea><br />
+</form>  
+
+<canvas id="mycanvas"  width = "100" height= "100"></canvas>
+
+<p class="margin"> Hello! Welcome to my attempt at making a website through experimenting with python code. Here's my CV/Resume <a href="./chamil.pdf">PDF Version</a>in case you would be interested in hiring me. Otherwise, take a look around and maybe you will see something that interests you. </p>
+
+<p class= "margin">
+I currently spend most of my time living in New York while attending New York University in pursuit of a Bachelor's Degree in Mathematics and spend my non-academic time biking, running, playing badminton and painting. I also quite enjoy traveling to foreign places and learning new languages.
+</p>
+</div></div>
+
+
+<pre id="output" style="display:none;"></pre>
+
+<textarea id="yourcode" cols="40" rows="10" style="display:none;">
+import turtle
+import random
+
+t = turtle.Turtle()
+wn.setup(800,100)
+t.speed(5)
+
+# ask the user for a number of objects
+numobjects = int(turtle.textinput("Number of objects", "Number of objects"))
+
+# create lists that store the x & y position for each box
+objects_x = []
+objects_y = []
+
+# create lists that store the x & y speed for each box
+objects_sx = []
+objects_sy = []
+
+# create a list that stores the color for each box
+objects_c  = []
+
+# load our lists with random data
+for x in range(numobjects):
+
+   # randomize the x & y positions for each box
+   objects_x.append(random.randint(-200, 200))
+   objects_y.append(random.randint(-200, 200))
+
+   # randomize the speeds for each box
+   objects_sx.append(random.randint(-1, 1))
+   objects_sy.append(random.randint(-1, 1))
+
+   # randomize the color for each box - note that we are
+   # using a "list inside a list" here - we call these "multidimensional
+   # lists" in Python and "multidimensional arrays" in other languages
+   objects_c.append([random.random(), random.random(), random.random()])
+
+# our "gameloop" function runs every 30ms and continually redraws the screen
+def gameloop():
+
+   # clear the canvas and hide the turtle
+   t.clear()
+   t.hideturtle()
+
+   # iterate through all of our objects
+   # "x" will assume the index value for each item in the objects_x
+   # list, which can be used as the index value for all of the other lists
+   for counter in range(len(objects_x)):
+
+       # pick up the pen
+       t.penup()
+
+       # go to the current object's location
+       t.goto(objects_x[counter], objects_y[counter])
+
+       # put down the pen
+       t.pendown()
+
+       # set the correct fill color & begin filling
+       t.fillcolor(objects_c[counter][0], objects_c[counter][1], objects_c[counter][2])
+       t.begin_fill()
+
+       # draw a box
+       for x in range(4):
+           t.forward(20)
+           t.right(90)        
+
+       # stop filling when we are done drawing the box
+       t.end_fill()
+
+       # move the object based on its speed (stored in the speed lists)
+       objects_x[counter] += objects_sx[counter]
+       objects_y[counter] += objects_sy[counter]
+
+       # bouncing - check to see if the object hit and edge and
+       # react accordingly (nudge it back onto the screen and flip
+       # its speed so it moves in the opposite direction)
+       if objects_x[counter] > 200:
+           objects_x[counter] = 199
+           objects_sx[counter] *= -1
+       if objects_x[counter] < -200:            
+           objects_x[counter] = -199
+           objects_sx[counter] *= -1        
+       if objects_y[counter] > 200:
+           objects_y[counter] = 199
+           objects_sy[counter] *= -1
+       if objects_y[counter] < -200:
+           objects_y[counter] = -199
+           objects_sy[counter] *= -1
+
+   # once we have redrawn the screen we can force Python to update
+   # all graphics
+   t.update()
+
+   # call this function again in 30ms
+   t.ontimer(gameloop, 30)
+
+#### MAIN PROGRAM ####
+
+# set up our canvas
+t.setup(500,500,0,0)
+
+# tell Python not to draw to the screen - we will call the "update" method
+# when we need to draw (makes things a lot faster)
+t.tracer(0)
+
+# call our gameloop function to start up the program
+gameloop()
+
+# when the user clicks on the screen we can end the program
+t.exitonclick()
+
+
+</textarea><br />
+</form>  
+
+<canvas id="mycanvas"  width = "500" height= "500"></canvas>
+
+
+<pre id="output" style="display:none;"></pre>
+
+
+</body>
+</html>
